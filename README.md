@@ -7,3 +7,4 @@
 - TypeScript
 - React
 - Feature Sliced Design (FSD)
+- CSS Modules
