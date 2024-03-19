@@ -9,20 +9,25 @@ import { useInViewParams } from '../model/use-in-view-params';
 import styles from './styles.module.css';
 
 export const PostsList = () => {
+  // Определение наблюдателя, он сообщает когда юзер долистал до нижнего края
   const { ref, inView } = useInView(useInViewParams);
+  // Достаем количество просмотренных постов из юрл
   const viewedFromUrl = Number(paramFromUrl('viewed')) || 0;
 
   const [loadedPosts, setLoadedPosts] = useState<PostType[]>([]);
   const [start, setStart] = useState(0);
   const [limit, setLimit] = useState(10 + viewedFromUrl);
 
-  const GetPostsQueryParams = {
+  // Определение объекта параметов в запросе
+  const PostsQueryParams = {
     ['_start']: start,
     ['_limit']: limit,
   } as const;
 
-  const { data, isLoading, refetch } = useGetPosts(GetPostsQueryParams);
+  // Самописный хук содержит в себе реализацию апи-запроса на получение постов
+  const { data, isLoading, refetch } = useGetPosts(PostsQueryParams);
 
+  // Вызов новой порции постов при срабатывании наблюдателя
   useEffect(() => {
     if (data) {
       setLoadedPosts([...loadedPosts, ...(data as PostType[])]);
@@ -41,6 +46,7 @@ export const PostsList = () => {
     refetch();
   };
 
+  // Вызов новой порции постов при срабатывании наблюдателя
   useEffect(() => {
     if (inView) {
       handleGetNewPosts();

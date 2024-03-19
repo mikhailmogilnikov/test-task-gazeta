@@ -16,6 +16,7 @@ type ApiHook = (
   refetch: () => void;
 };
 
+// Самописный хук для создания апи-запросов, упрощенная версия React Query
 export const useApiHook: ApiHook = (query, queryParams, options) => {
   const [data, setData] = useState<unknown>(null);
   const [isError, setIsError] = useState(false);
