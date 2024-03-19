@@ -1,0 +1,13 @@
+:root {
+  --color: #000000;
+  --bg-color: #ffffff;
+  --scrollbar: #c0c0c0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color: #ffffff;
+    --bg-color: #000000;
+    --scrollbar: #2b2b2b;
+  }
+}
